@@ -1,5 +1,12 @@
-import { StyleSheet, Text, View, Image } from 'react-native'
+import { StyleSheet, Text, View, Image, FlatList } from 'react-native'
 
+
+const elements = [
+    {id: 1, name: 'Sent', icon: require('../assets/send.png')},
+    {id: 2, name: 'Receive', icon: require('../assets/recieve.png')},
+    {id: 3, name: 'Loan', icon: require('../assets/loan.png')},
+    {id: 4, name: 'Topup', icon: require('../assets/topUp.png')},
+]
 
 
 export default function HomeScreen() {
@@ -25,7 +32,26 @@ export default function HomeScreen() {
             <Image source={require('../assets/Card.png')}/>
         </View>
 
-        
+        <FlatList
+            data={elements}
+            horizontal = {true}
+            renderItem={({item}) => (
+                <View style = {styles.icon}>
+                    <View style = {styles.transact} >
+                        <Image source={item.icon}/>
+                    </View>
+
+
+                    <View style ={styles.text}>
+                        <Text>{item.name}</Text>
+                    </View>
+
+                </View>
+            )}
+            keyExtractor={item => item.id.toString()}
+        >
+
+        </FlatList>
     </View>
   )
 }
@@ -58,5 +84,21 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    icon: {
+        flexDirection: 'column',
+        alignItems: 'center',
+        paddingLeft: 25,
+        paddingTop: 30,
+        paddingHorizontal: 20,
+       
+    },
+    transact: {
+        borderRadius: 30,
+        padding: 10,
+        backgroundColor: '#E5E5E5',
+    },
+    text: {
+        paddingTop: 10,
     },
 })
